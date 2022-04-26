@@ -12,6 +12,28 @@ const createElement = (template) => {
   return newElement.firstElementChild;
 };
 
+class TemplateView {
+  constructor(createTemplate) {
+    this.createTemplate = createTemplate;
+  }
+
+  getTemplate() {
+    return this.createTemplate();
+  }
+
+  getElement() {
+    if (!this.element) {
+      this.element = createElement(this.getTemplate());
+    }
+
+    return this.element;
+  }
+
+  removeElement() {
+    this.element = null;
+  }
+}
+
 const render = (component, container, place = RenderPosition.BEFOREEND) => {
   const element = component.getElement();
 
@@ -31,4 +53,4 @@ const render = (component, container, place = RenderPosition.BEFOREEND) => {
   }
 };
 
-export {RenderPosition, createElement, render};
+export { RenderPosition, createElement, render, TemplateView };
